@@ -6,7 +6,6 @@ export type FlowFragment = {
     name: string;
     gameObject: string;
     expect: BaseExpect;
-    onFragmentUpdate: OnFragmentUpdate;
 };
 
 export type OnFragmentUpdate = (newData: Partial<FlowFragment>, nodeId: string) => void;

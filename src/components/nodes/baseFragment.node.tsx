@@ -4,15 +4,24 @@ import { ExpectedOutputselector } from "../form/expectedOutputSelector";
 import { DataInputGrid } from "../layout/dataInputGrid";
 import { EditablePreviewInput } from "../form/editablePreviewInput";
 import { MdOutlineEdit } from "react-icons/md";
+import { useCallback, useContext } from "react";
+import { ReactFlowUtilsContext } from "../../context/react-flow/reactFlow.context";
 
 export function BaseFlowFragment({ data, id }: NodeProps<Node<FlowFragment>>) {
-  const handleNameChange = (newVal: React.SetStateAction<string>) => {
-    if (typeof newVal === "function") {
-      data.onFragmentUpdate({ name: newVal(data.name) }, id);
-    } else {
-      data.onFragmentUpdate({ name: newVal }, id);
+
+  const { onFragmentUpdate } = useContext(ReactFlowUtilsContext) ?? {};
+
+  const handleNameChange = useCallback((newVal: React.SetStateAction<string>) => {
+    if (!onFragmentUpdate) {
+      return;
     }
-  };
+    
+    if (typeof newVal === "function") {
+      onFragmentUpdate({ name: newVal(data.name) }, id);
+    } else {
+      onFragmentUpdate({ name: newVal }, id);
+    }
+  }, [onFragmentUpdate, data.name, id]);
 
   return (
     <div>
@@ -36,9 +45,6 @@ export function BaseFlowFragment({ data, id }: NodeProps<Node<FlowFragment>>) {
             <input
               id="text"
               name="text"
-              onChange={(e) =>
-                data.onFragmentUpdate({ name: e.target.value }, id)
-              }
               className="nodrag"
             />
             <p>expectedOutput:</p>

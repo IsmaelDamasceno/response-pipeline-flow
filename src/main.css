@@ -1,58 +1,84 @@
-
 @import "tailwindcss";
 
 body {
-    margin: 0;
+  margin: 0;
 }
 
-#root, body, html {
-    width: 100%;
-    height: 100%;
+#root,
+body,
+html {
+  width: 100%;
+  height: 100%;
 }
 
 .react-flow__node:hover {
-    box-shadow: var(--xy-node-boxshadow-hover, var(--xy-node-boxshadow-hover-default));
+  box-shadow: var(
+    --xy-node-boxshadow-hover,
+    var(--xy-node-boxshadow-hover-default)
+  );
+}
+
+.hoverable:hover {
+  box-shadow: 0 1px 4px 1px #155efc5f;
 }
 
 .react-flow__node.selectable {
-    cursor: grab;
+  cursor: grab;
 }
 
 .react-flow__node.selectable.selected {
-    box-shadow: var(--xy-node-boxshadow-selected, var(--xy-node-boxshadow-selected-default));
+  box-shadow: var(
+    --xy-node-boxshadow-selected,
+    var(--xy-node-boxshadow-selected-default)
+  );
 }
 
 .react-flow__node.selectable.dragging {
-    cursor: grabbing;
+  cursor: grabbing;
 }
 
 .react-flow__node.selectable label {
-    cursor: grab;
+  cursor: grab;
 }
 
 .react-flow__node.selectable.dragging label {
-    cursor: grabbing;
+  cursor: grabbing;
 }
 
 .react-flow__node {
-    padding: 0;
-    border-radius: var(--xy-node-border-radius, var(--xy-node-border-radius-default));
-    font-size: 12px;
-    color: var(--xy-node-color, var(--xy-node-color-default));
-    text-align: center;
-    border: var(--xy-node-border, var(--xy-node-border-default));
-    background-color: var(--xy-node-background-color, var(--xy-node-background-color-default));
+  padding: 0;
+  border-radius: var(
+    --xy-node-border-radius,
+    var(--xy-node-border-radius-default)
+  );
+  font-size: 12px;
+  color: var(--xy-node-color, var(--xy-node-color-default));
+  text-align: center;
+  border: var(--xy-node-border, var(--xy-node-border-default));
+  background-color: var(
+    --xy-node-background-color,
+    var(--xy-node-background-color-default)
+  );
 }
 
-input, select {
-    background-color: var(--color-zinc-800);
+input,
+select {
+  background-color: var(--color-zinc-800);
 }
 
 p {
-    text-align: left;
+  text-align: left;
 }
 
 .node-panel {
-    background-color: #1e1e1e;
-    color: white;
+  background-color: #1e1e1e;
+  color: white;
+}
+
+.unselectable {
+  user-select: none;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
 }
