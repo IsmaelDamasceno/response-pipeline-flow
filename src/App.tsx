@@ -13,6 +13,7 @@ import { useCallback, useEffect } from "react";
 import { FlowFragmentNode, OnFragmentUpdate } from "./types/flowFragment";
 import { BaseFlowFragment } from "./components/nodes/baseFragment.node";
 import { NodeTypes as NodeType } from "./types/nodeTypes";
+import { NodePanel } from "./components/node-panel";
 
 const initialEdges = [{ id: "e1-2", source: "1", target: "2" }];
 
@@ -82,7 +83,7 @@ function App() {
   );
 
   return (
-    <div style={{ width: "100vw", height: "100vh" }}>
+    <div className="w-full h-full overflow-hidden relative">
       <ReactFlow
         nodes={nodes}
         edges={edges}
@@ -94,6 +95,7 @@ function App() {
       >
         <Background color="#ccc" variant={BackgroundVariant.Dots} />
       </ReactFlow>
+      <NodePanel />
     </div>
   );
 }

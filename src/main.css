@@ -5,6 +5,11 @@ body {
     margin: 0;
 }
 
+#root, body, html {
+    width: 100%;
+    height: 100%;
+}
+
 .react-flow__node:hover {
     box-shadow: var(--xy-node-boxshadow-hover, var(--xy-node-boxshadow-hover-default));
 }
@@ -45,4 +50,9 @@ input, select {
 
 p {
     text-align: left;
+}
+
+.node-panel {
+    background-color: #1e1e1e;
+    color: white;
 }
