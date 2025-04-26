@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BiLeftArrow, BiRightArrow } from "react-icons/bi";
 import { PanelItem } from "./panel-item";
 
@@ -6,6 +6,20 @@ export function NodePanel() {
   const [open, setOpen] = useState(true);
 
   const Icon = open ? BiRightArrow : BiLeftArrow;
+
+  useEffect(() => {
+    const checkKey = (e: KeyboardEvent) => {
+      if (e.key === 'Tab') {
+        e.preventDefault();
+        setOpen(prev => !prev);
+      }
+    };
+
+    document.onkeydown = checkKey;
+    return () => {
+      document.onkeydown = null;
+    }
+  }, []);
 
   return (
     <div
@@ -19,6 +33,7 @@ export function NodePanel() {
         type="button"
         className="node-panel node-panel-toggle rounded-s-2xl absolute left-0 transform-[translateX(-100%)] p-3 cursor-pointer"
         onClick={() => setOpen((prev) => !prev)}
+        data-tooltip={`${open ? 'colapse' : 'expand'} (Tab)`}
       >
         <Icon size="1.5rem" />
       </button>
