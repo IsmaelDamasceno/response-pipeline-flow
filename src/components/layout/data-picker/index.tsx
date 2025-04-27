@@ -45,9 +45,9 @@ export function DataPicker({ icon, content, nativeProps }: Props) {
           {content}
         </p>
       </div>
-      <button className="data-picker data-picker-plus cursor-pointer" type="button">
+      <div className="data-picker data-picker-plus cursor-pointer">
         <GoPlus />
-      </button>
+      </div>
     </button>
   );
 }

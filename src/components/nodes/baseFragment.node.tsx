@@ -45,9 +45,9 @@ export function BaseFlowFragment({ data, id }: NodeProps<Node<FlowFragment>>) {
         </div>
         <div className="base-node-body p-2">
           <DataInputGrid className="p-2 gap-1 ">
-            <p>test</p>
+            <p>Game Object Reference</p>
             <DataPicker
-              content="Test"
+              content="Unasigned"
               icon={() => <IoIosCube />}
               nativeProps={{
                 button: {
