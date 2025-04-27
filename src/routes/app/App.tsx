@@ -3,7 +3,7 @@ import {
 } from "@xyflow/react";
 
 import "@xyflow/react/dist/style.css";
-import { ReactFlowManager } from "./components/react-flow-manager";
+import { ReactFlowManager } from "../../components/react-flow-manager";
 
 function App() {
   return (
