@@ -1,27 +1,31 @@
 import { Handle, Node, NodeProps, Position } from "@xyflow/react";
 import { FlowFragment } from "../../types/flowFragment";
 import { ExpectedOutputselector } from "../form/expectedOutputSelector";
-import { DataInputGrid } from "../layout/dataInputGrid";
+import { DataInputGrid } from "../layout/data-input-grid";
 import { EditablePreviewInput } from "../form/editablePreviewInput";
 import { MdOutlineEdit } from "react-icons/md";
 import { useCallback, useContext } from "react";
 import { ReactFlowUtilsContext } from "../../context/react-flow/reactFlow.context";
+import { DataPicker } from "../layout/data-picker";
+import { IoIosCube } from "react-icons/io";
 
 export function BaseFlowFragment({ data, id }: NodeProps<Node<FlowFragment>>) {
-
   const { onFragmentUpdate } = useContext(ReactFlowUtilsContext) ?? {};
 
-  const handleNameChange = useCallback((newVal: React.SetStateAction<string>) => {
-    if (!onFragmentUpdate) {
-      return;
-    }
-    
-    if (typeof newVal === "function") {
-      onFragmentUpdate({ name: newVal(data.name) }, id);
-    } else {
-      onFragmentUpdate({ name: newVal }, id);
-    }
-  }, [onFragmentUpdate, data.name, id]);
+  const handleNameChange = useCallback(
+    (newVal: React.SetStateAction<string>) => {
+      if (!onFragmentUpdate) {
+        return;
+      }
+
+      if (typeof newVal === "function") {
+        onFragmentUpdate({ name: newVal(data.name) }, id);
+      } else {
+        onFragmentUpdate({ name: newVal }, id);
+      }
+    },
+    [onFragmentUpdate, data.name, id]
+  );
 
   return (
     <div>
@@ -34,19 +38,25 @@ export function BaseFlowFragment({ data, id }: NodeProps<Node<FlowFragment>>) {
             icon={<MdOutlineEdit />}
             nativeProps={{
               input: {
-                className: '!bg-yellow-200'
-              }
+                className: "!bg-yellow-200",
+              },
             }}
           />
         </div>
         <div className="base-node-body p-2">
-          <DataInputGrid className="p-2 gap-1">
-            <p>gameObject:</p>
-            <input
-              id="text"
-              name="text"
-              className="nodrag"
+          <DataInputGrid className="p-2 gap-1 ">
+            <p>test</p>
+            <DataPicker
+              content="Test"
+              icon={() => <IoIosCube />}
+              nativeProps={{
+                button: {
+                  className: "text-blue-600",
+                },
+              }}
             />
+            <p>gameObject:</p>
+            <input id="text" name="text" className="nodrag" />
             <p>expectedOutput:</p>
             <ExpectedOutputselector />
           </DataInputGrid>

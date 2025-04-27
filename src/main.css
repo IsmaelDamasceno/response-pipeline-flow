@@ -64,8 +64,15 @@ html {
 }
 
 input,
-select {
+select,
+.input-area {
   background-color: var(--color-zinc-800);
+  border-radius: 3px;
+}
+.input-area:focus {
+  background-color: var(--color-zinc-800);
+  outline: -webkit-focus-ring-color auto 1px;
+  border-radius: 3px;
 }
 
 p {
@@ -138,5 +145,5 @@ ul.selection-list li:hover {
 
 .hover-scale:hover {
   transform: scale(1.075);
-  transition: .1s;
+  transition: 0.1s;
 }
