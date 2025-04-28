@@ -1,10 +1,11 @@
 import { addEdge, Background, BackgroundVariant, Connection, ReactFlow, useEdgesState, useNodesState, useReactFlow } from "@xyflow/react";
 import { ReactFlowUtilsProvider } from "../../context/react-flow/reactFlow.context.provider";
 import { NodePanel } from "../node-panel";
-import { useCallback, useEffect } from "react";
+import { SetStateAction, useCallback, useEffect, useState } from "react";
 import { NodeTypes } from "../../types/nodeTypes";
 import { FlowFragmentNode, OnFragmentUpdate } from "../../types/flowFragment";
 import { BaseFlowFragment } from "../nodes/baseFragment.node";
+import { GameObjectReferenceDialog } from "../game-object-reference-dialog";
 
 const initialEdges = [{ id: "e1-2", source: "1", target: "2" }];
 
@@ -16,7 +17,13 @@ export function ReactFlowManager() {
   const [nodes, setNodes, onNodesChange] = useNodesState<FlowFragmentNode>([]);
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
 
+  const [goReferenceOpen, setGoReferenceOpen] = useState(false);
+
   const { screenToFlowPosition } = useReactFlow();
+
+  const toggleGameObjectModalReferenceDialog = useCallback((open: SetStateAction<boolean>) => {
+    setGoReferenceOpen(open);
+  }, []);
 
   const handleFragmentUpdate: OnFragmentUpdate = useCallback(
     (data, nodeid) => {
@@ -71,6 +78,7 @@ export function ReactFlowManager() {
       screenToFlowPosition={screenToFlowPosition}
       setNodes={setNodes}
       onFragmentUpdate={handleFragmentUpdate}
+      toggleGameObjectModalReferenceDialog={toggleGameObjectModalReferenceDialog}
     >
       <div className="w-full h-full overflow-hidden relative">
         <ReactFlow
@@ -86,6 +94,7 @@ export function ReactFlowManager() {
           <Background color="#ccc" variant={BackgroundVariant.Dots} />
         </ReactFlow>
         <NodePanel />
+        <GameObjectReferenceDialog isOpen={goReferenceOpen} setIsOpen={setGoReferenceOpen} />
       </div>
     </ReactFlowUtilsProvider>
   );

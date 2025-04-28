@@ -1,13 +1,12 @@
 import { DialogPanel, Dialog as HDLDialog } from "@headlessui/react";
 import { ReactNode } from "react";
+import { OpenToggle } from "../../../types/openToggle";
 
 interface Props {
   children: ReactNode;
-  isOpen: boolean;
-  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function Dialog({ children, isOpen, setIsOpen }: Props) {
+export default function Dialog({ children, isOpen, setIsOpen }: Props & OpenToggle) {
   function handleClose() {
     setIsOpen(false);
   }
@@ -20,9 +19,9 @@ export default function Dialog({ children, isOpen, setIsOpen }: Props) {
       onClose={handleClose}
     >
       <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-        <div className="flex min-h-full items-center justify-center p-4">
+        <div className="backdrop-blur-sm flex min-h-full bg-blue-600/5 items-center justify-center p-4">
           <DialogPanel
-            className="w-full max-w-md rounded-xl bg-[#1e1e1e] p-6 backdrop-blur-2xl duration-300 ease-out data-closed:transform-[scale(95%)] data-closed:opacity-0"
+            className="duration-300 ease-out data-closed:transform-[scale(95%)] data-closed:opacity-0"
             transition
           >
             {children}

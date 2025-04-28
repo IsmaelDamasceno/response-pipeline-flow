@@ -10,7 +10,7 @@ import { DataPicker } from "../layout/data-picker";
 import { IoIosCube } from "react-icons/io";
 
 export function BaseFlowFragment({ data, id }: NodeProps<Node<FlowFragment>>) {
-  const { onFragmentUpdate } = useContext(ReactFlowUtilsContext) ?? {};
+  const { onFragmentUpdate, toggleGameObjectModalReferenceDialog } = useContext(ReactFlowUtilsContext) ?? {};
 
   const handleNameChange = useCallback(
     (newVal: React.SetStateAction<string>) => {
@@ -54,6 +54,7 @@ export function BaseFlowFragment({ data, id }: NodeProps<Node<FlowFragment>>) {
                   className: "text-blue-600",
                 },
               }}
+              onClick={() => toggleGameObjectModalReferenceDialog?.(true)}
             />
             <p>gameObject:</p>
             <input id="text" name="text" className="nodrag" />

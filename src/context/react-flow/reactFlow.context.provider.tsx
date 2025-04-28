@@ -6,8 +6,8 @@ interface Props extends ReactFlowUtilsContextData {
   children: ReactNode;
 }
 
-export function ReactFlowUtilsProvider({ children, screenToFlowPosition, setNodes, onFragmentUpdate }: Props) {
-  return <ReactFlowUtilsContext.Provider value={{ screenToFlowPosition, setNodes, onFragmentUpdate }}>
+export function ReactFlowUtilsProvider({ children, ...dataProps }: Props) {
+  return <ReactFlowUtilsContext.Provider value={dataProps}>
     {children}
   </ReactFlowUtilsContext.Provider>;
 }
