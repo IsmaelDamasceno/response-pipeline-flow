@@ -1,14 +1,14 @@
 import { DialogPanel, Dialog as HDLDialog } from "@headlessui/react";
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 
 interface Props {
   children: ReactNode;
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export default function Dialog({ children }: Props) {
-  const [isOpen, setIsOpen] = useState(true);
-
-  function close() {
+export default function Dialog({ children, isOpen, setIsOpen }: Props) {
+  function handleClose() {
     setIsOpen(false);
   }
 
@@ -17,7 +17,7 @@ export default function Dialog({ children }: Props) {
       open={isOpen}
       as="div"
       className="relative z-10 focus:outline-none"
-      onClose={close}
+      onClose={handleClose}
     >
       <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
         <div className="flex min-h-full items-center justify-center p-4">

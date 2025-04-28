@@ -4,14 +4,15 @@ import { GoPlus } from "react-icons/go";
 interface Props {
   icon: () => ReactElement;
   content: string;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
   nativeProps?: {
-    button?: Omit<React.ComponentProps<"button">, "type">;
+    button?: Omit<React.ComponentProps<"button">, "type" | "onClick">;
     iconWrapper?: React.ComponentProps<"div">;
     contentParagraph?: React.ComponentProps<"p">;
   };
 }
 
-export function DataPicker({ icon, content, nativeProps }: Props) {
+export function DataPicker({ icon, content, onClick, nativeProps }: Props) {
   const { button, contentParagraph, iconWrapper } = nativeProps ?? {};
   const { className: buttonClassName, ...buttonProps } = button ?? {};
   const { className: contentClassName, ...contentParagraphProps } =
@@ -25,6 +26,7 @@ export function DataPicker({ icon, content, nativeProps }: Props) {
       className={`data-picker data-picker-wrapper input-area flex items-center px-1 gap-x-1 cursor-pointer nodrag ${
         buttonClassName ?? ""
       }`}
+      onClick={onClick}
       {...buttonProps}
     >
       <div className="data-picker data-picker-content grow flex gap-x-1 items-center">
