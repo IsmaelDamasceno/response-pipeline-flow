@@ -1,11 +1,18 @@
-import Dexie from "dexie";
+import Dexie, { EntityTable } from "dexie";
 import { CursorData } from "./types/cursorData";
 
 export const cursorData: CursorData = {
     currentHeld: null,
 };
 
-export const db = new Dexie('engine-project-db');
+interface EngineProject {
+  engineProject: number;
+  handle: FileSystemDirectoryHandle;
+}
+
+export const db = new Dexie('engine-project-db') as Dexie & {
+  engineProj: EntityTable<EngineProject, 'engineProject'>
+};
 db.version(1).stores({
   engineProj: '++engineProject'
 });
