@@ -1,12 +1,26 @@
+import { useEngineProjectReference } from "../../hooks/useEngineProjectReference";
 import { useEngineProjectStore } from "../../stores/engineProject.store";
+import { LoadState } from "../../types/loadState";
 import { OpenToggle } from "../../types/openToggle";
 import Dialog from "../layout/dialog";
 
 export function GameObjectReferenceDialog(toggleProps: OpenToggle) {
-  const loadedProject = useEngineProjectStore((state) => state.loadedProject);
-  const loadProject = useEngineProjectStore((state) => state.loadProject);
-
   
+  const { loadedProject, handleLoadProject, projectLoadingState } = useEngineProjectReference();
+
+  if (projectLoadingState !== LoadState.READY) {
+    <Dialog {...toggleProps}>
+      <div
+        className="rounded-xl bg-[#1e1e1e] p-6 "
+        style={{
+          width: "min(45rem, 90vw)",
+          height: "min(30rem, 90vh)",
+        }}
+      >
+        <h2>Project is still loading...</h2>
+      </div>
+    </Dialog> 
+  }
 
   return (
     <Dialog {...toggleProps}>
