@@ -1,5 +1,4 @@
 import { useEngineProjectReference } from "../../hooks/useEngineProjectReference";
-import { useEngineProjectStore } from "../../stores/engineProject.store";
 import { LoadState } from "../../types/loadState";
 import { OpenToggle } from "../../types/openToggle";
 import Dialog from "../layout/dialog";
