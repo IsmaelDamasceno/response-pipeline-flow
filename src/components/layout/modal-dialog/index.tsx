@@ -1,4 +1,4 @@
-import { DialogPanel, Dialog as HDLDialog } from "@headlessui/react";
+import { DialogPanel, Dialog } from "@headlessui/react";
 import { ReactNode } from "react";
 import { OpenToggle } from "../../../types/openToggle";
 
@@ -6,13 +6,13 @@ interface Props {
   children: ReactNode;
 }
 
-export default function Dialog({ children, isOpen, setIsOpen }: Props & OpenToggle) {
+export function ModalDialog({ children, isOpen, setIsOpen }: Props & OpenToggle) {
   function handleClose() {
     setIsOpen(false);
   }
 
   return (
-    <HDLDialog
+    <Dialog
       open={isOpen}
       as="div"
       className="relative z-10 focus:outline-none"
@@ -28,6 +28,6 @@ export default function Dialog({ children, isOpen, setIsOpen }: Props & OpenTogg
           </DialogPanel>
         </div>
       </div>
-    </HDLDialog>
+    </Dialog>
   );
 }

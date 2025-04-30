@@ -1,14 +1,14 @@
 import { useEngineProjectReference } from "../../hooks/useEngineProjectReference";
 import { LoadState } from "../../types/loadState";
 import { OpenToggle } from "../../types/openToggle";
-import Dialog from "../layout/dialog";
+import { ModalDialog } from "../layout/modal-dialog";
 
 export function GameObjectReferenceDialog(toggleProps: OpenToggle) {
   
   const { loadedProject, handleLoadProject, projectLoadingState } = useEngineProjectReference();
 
   if (projectLoadingState !== LoadState.READY) {
-    <Dialog {...toggleProps}>
+    <ModalDialog {...toggleProps}>
       <div
         className="rounded-xl bg-[#1e1e1e] p-6 "
         style={{
@@ -18,11 +18,11 @@ export function GameObjectReferenceDialog(toggleProps: OpenToggle) {
       >
         <h2>Project is still loading...</h2>
       </div>
-    </Dialog> 
+    </ModalDialog> 
   }
 
   return (
-    <Dialog {...toggleProps}>
+    <ModalDialog {...toggleProps}>
       <div
         className="rounded-xl bg-[#1e1e1e] p-6 "
         style={{
@@ -41,6 +41,6 @@ export function GameObjectReferenceDialog(toggleProps: OpenToggle) {
           </div>
         )}
       </div>
-    </Dialog>
+    </ModalDialog>
   );
 }
