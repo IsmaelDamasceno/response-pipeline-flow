@@ -19,7 +19,7 @@ export default function Dialog({ children, isOpen, setIsOpen }: Props & OpenTogg
       onClose={handleClose}
     >
       <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
-        <div className="backdrop-blur-sm flex min-h-full bg-blue-600/5 items-center justify-center p-4">
+        <div className="backdrop-blur-sm flex min-h-full bg-blue-600/20 items-center justify-center">
           <DialogPanel
             className="duration-300 ease-out data-closed:transform-[scale(95%)] data-closed:opacity-0"
             transition
