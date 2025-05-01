@@ -3,6 +3,9 @@ import { useEngineProjectStore } from "../stores/engineProject.store";
 import { getFilesRecursively } from "../utils/getFilesRecursively";
 import { db } from "../globals";
 import { LoadState } from "../types/loadState";
+import { requestFileSystemPermission } from "../utils/requestfileSystemPermission";
+import { useConfirmationModal } from "../async-confirm";
+import { EngineProjectFolderConfirmDialog } from "../components/engine-project-folder-confirm-dialog";
 
 export function useEngineProjectReference() {
 
@@ -10,6 +13,10 @@ export function useEngineProjectReference() {
 
     const loadedProject = useEngineProjectStore((state) => state.loadedProject);
     const loadProject = useEngineProjectStore((state) => state.loadProject);
+
+    const { waitConfirmation } = useConfirmationModal<boolean, { handleName: string }>({
+        Component: EngineProjectFolderConfirmDialog
+    });
 
     const handleLoadProject = useCallback(async () => {
         try {
@@ -32,6 +39,7 @@ export function useEngineProjectReference() {
                 if (!directoryHandle) {
                     throw new Error("Failed to load project handle from db");
                 }
+                if (!(await requestFileSystemPermission(directoryHandle, (handleName) => waitConfirmation({handleName}))))
                 loadProject(directoryHandle);
                 await handleProcessProject(directoryHandle);
                 setProjectLoadState(LoadState.READY);
@@ -42,7 +50,7 @@ export function useEngineProjectReference() {
             }
         };
         initializeProject();
-    }, [loadProject]);
+    }, [loadProject, waitConfirmation]);
 
     return { handleLoadProject, loadedProject, projectLoadingState }
 }

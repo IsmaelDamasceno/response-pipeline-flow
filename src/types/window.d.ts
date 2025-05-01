@@ -1,6 +1,23 @@
+
+export { };
+
 declare global {
     interface Window {
         showDirectoryPicker: ((options?: DirectoryPickerOpts) => Promise<FileSystemDirectoryHandle>) | undefined;
+    }
+
+    interface FileSystemHandlePermissionDescriptor {
+        mode?: 'read' | 'readwrite';
+    }
+
+    interface FileSystemHandle {
+        queryPermission?: (
+            descriptor?: FileSystemHandlePermissionDescriptor
+        ) => Promise<PermissionState>;
+
+        requestPermission?: (
+            descriptor?: FileSystemHandlePermissionDescriptor
+        ) => Promise<PermissionState>;
     }
 }
 
