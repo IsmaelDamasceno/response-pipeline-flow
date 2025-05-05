@@ -1,5 +1,5 @@
 
-export async function requestFileSystemPermission(fileHandle: FileSystemHandle, requestModalConfirmation: (resourceName: string) => Promise<boolean>, withWrite = false) {
+export async function requestFileSystemPermission(fileHandle: FileSystemHandle, requestModalConfirmation: (resourceName: string) => Promise<boolean>, withWrite = false): Promise<boolean> {
     const opts: FileSystemHandlePermissionDescriptor | undefined = withWrite ? { mode: 'readwrite' } : undefined;
 
     try {
@@ -25,17 +25,15 @@ export async function requestFileSystemPermission(fileHandle: FileSystemHandle, 
         return false;
     }
     catch(e) {
-        console.log("[LOG] CATCH ERROR:", e instanceof Error);
-        if (!(e instanceof Error)) {
-            return;
+        if (!(e instanceof DOMException)) {
+            return false;
         }
         if (e.message.includes("User activation is required")) {
-            console.log("[LOG] AWAITING CONFIRM:", fileHandle.name);
             await requestModalConfirmation(fileHandle.name);
-            console.log("[LOG] CONFIRMED");
-            requestFileSystemPermission(fileHandle, requestModalConfirmation, withWrite);
-            return;
+            const result = await requestFileSystemPermission(fileHandle, requestModalConfirmation, withWrite);
+            return result;
         }
         throw e;
+        return false;
     }
 }

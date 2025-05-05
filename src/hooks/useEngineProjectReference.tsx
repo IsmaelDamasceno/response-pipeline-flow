@@ -6,6 +6,7 @@ import { LoadState } from "../types/loadState";
 import { requestFileSystemPermission } from "../utils/requestfileSystemPermission";
 import { useConfirmationModal } from "../async-confirm";
 import { EngineProjectFolderConfirmDialog } from "../components/engine-project-folder-confirm-dialog";
+import { useNavigate } from "react-router";
 
 export function useEngineProjectReference() {
 
@@ -13,6 +14,8 @@ export function useEngineProjectReference() {
 
     const loadedProject = useEngineProjectStore((state) => state.loadedProject);
     const loadProject = useEngineProjectStore((state) => state.loadProject);
+
+    const navigate = useNavigate();
 
     const { waitConfirmation } = useConfirmationModal<boolean, { handleName: string }>({
         Component: EngineProjectFolderConfirmDialog
@@ -39,7 +42,12 @@ export function useEngineProjectReference() {
                 if (!directoryHandle) {
                     throw new Error("Failed to load project handle from db");
                 }
-                if (!(await requestFileSystemPermission(directoryHandle, (handleName) => waitConfirmation({handleName}))))
+                const userGrantedAccess = (await requestFileSystemPermission(directoryHandle, (handleName) => waitConfirmation({handleName})));
+                if (!userGrantedAccess) {
+                    console.error("Error: user denied access");
+                    navigate("/");
+                    return;
+                }
                 loadProject(directoryHandle);
                 await handleProcessProject(directoryHandle);
                 setProjectLoadState(LoadState.READY);

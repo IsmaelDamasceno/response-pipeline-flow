@@ -8,7 +8,6 @@ export async function* getFilesRecursively(entry: FileSystemHandle, currentPath:
     }
   } else if (entry.kind === "directory" && entry instanceof FileSystemDirectoryHandle) {
     for await (const handle of entry.values()) {
-      console.log("values:", handle);
       yield* getFilesRecursively(handle, handle.kind === 'directory' ? currentPath + `/${handle.name}` : currentPath);
     }
   }
