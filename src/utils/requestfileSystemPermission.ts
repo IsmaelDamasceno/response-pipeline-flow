@@ -29,7 +29,10 @@ export async function requestFileSystemPermission(fileHandle: FileSystemHandle, 
             return false;
         }
         if (e.message.includes("User activation is required")) {
-            await requestModalConfirmation(fileHandle.name);
+            const userConfirmedModal = await requestModalConfirmation(fileHandle.name);
+            if (!userConfirmedModal) {
+                return false;
+            }
             const result = await requestFileSystemPermission(fileHandle, requestModalConfirmation, withWrite);
             return result;
         }
